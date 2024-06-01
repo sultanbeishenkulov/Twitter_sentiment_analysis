@@ -87,14 +87,15 @@ class Preprocessing:
             tfidf_vectors = self.tfidf_vectorizer.transform(text_data_strings)
         return tfidf_vectors
 
-    def preprocess_text(self, df, column):
-        df = self.filter_non_string(df, column)
-        df[column] = df[column].apply(self.normalize_text)
-        df[column] = df[column].apply(self.remove_html_tags)
-        df[column] = df[column].apply(self.remove_urls)
-        df[column] = df[column].apply(self.remove_numbers)
-        df[column] = df[column].apply(self.remove_punctuation)
-        df[column] = df[column].apply(self.tokenize_text)
-        df[column] = df[column].apply(self.remove_stopwords)
-        df[column] = df[column].apply(self.remove_emojis)
-        return df
+    def preprocess_text(self, data):
+        data = self.filter_non_string(data, 'Tweet')
+        data['Tweet'] = data["Tweet"].apply(self.normalize_text)
+        data['Tweet'] = data['Tweet'].apply(self.remove_html_tags)
+        data['Tweet'] = data['Tweet'].apply(self.remove_urls)
+        data['Tweet'] = data['Tweet'].apply(self.remove_numbers)
+        data['Tweet'] = data['Tweet'].apply(self.remove_punctuation)
+        data['Tweet'] = data['Tweet'].apply(self.tokenize_text)
+        data['Tweet'] = data['Tweet'].apply(self.remove_stopwords)
+        data['Tweet'] = data['Tweet'].apply(self.remove_emojis)
+        return data
+
